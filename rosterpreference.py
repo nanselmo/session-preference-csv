@@ -1,29 +1,14 @@
 
-# coding: utf-8
-
-# In[ ]:
-
-
 import pandas
 
 
-# In[ ]:
-
-
-gsr_responses_df = pandas.read_csv("gsr-session-responses.csv")
+input_file_name = "gsr-session-responses-08-03-18"
+gsr_responses_df = pandas.read_csv(input_file_name + ".csv")
 gsr_responses_df["MondaySession"] = ""
 gsr_responses_df["TuesdaySession"] = ""
 
 
-# In[ ]:
-
-
-
 gsr_responses_df.head(2)
-
-
-# In[ ]:
-
 
 {"A" : {"count" : 0, "max" : 75, "names" : []}, 
  "B" : {"count" : 0, "max" : 40, "names" : []}, 
@@ -73,7 +58,7 @@ for index, row in gsr_responses_df.iterrows():
                 tue_session_counter_codeu[tue_first]['names'].append(full_name)
                 row["TuesdaySession"] = tue_first
             else:
-                tue_second = row["Tuesday second preference"][0]
+                tue_second = row["Tuesday second preference (CodeU)"][0] 
                 if tue_session_counter_codeu[tue_second]['count'] < tue_session_counter_codeu[tue_second]['max']:
                     tue_session_counter_codeu[tue_second]['count'] = tue_session_counter_codeu[tue_second]['count'] + 1
                     tue_session_counter_codeu[tue_second]['names'].append(full_name)
@@ -90,7 +75,7 @@ for index, row in gsr_responses_df.iterrows():
                 tue_session_counter_sch[tue_first]['names'].append(full_name)
                 row["TuesdaySession"] = tue_first
             else:
-                tue_second = row["Tuesday second preference"][0]
+                tue_second = row["Tuesday second preference (Scholars)"][0]
                 if tue_session_counter_sch[tue_second]['count'] < tue_session_counter_sch[tue_second]['max']:
                     tue_session_counter_sch[tue_second]['count'] = tue_session_counter_sch[tue_second]['count'] + 1
                     tue_session_counter_sch[tue_second]['names'].append(full_name)
@@ -99,13 +84,6 @@ for index, row in gsr_responses_df.iterrows():
                     "Preferences full for " + full_name + "on Tuesday (Scholars)"
     
     
-print(sessions)
-  
-    
+#print(sessions)
 
-
-# In[ ]:
-
-
-gsr_responses_df.head()
-
+gsr_responses_df.to_csv(input_file_name+"_slotted.csv")
